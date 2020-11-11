@@ -1,0 +1,31 @@
+{
+  "name": "jwt",
+  "version": "1.0.0",
+  "description": "jwt understanding",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svang-app/jwt.git"
+  },
+  "keywords": [
+    "jwt",
+    "node",
+    "jsonwebtoken"
+  ],
+  "author": "Vikram Khatri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/svang-app/jwt/issues"
+  },
+  "homepage": "https://github.com/svang-app/jwt#readme",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "uuid": "^8.3.1"
+  }
+}
