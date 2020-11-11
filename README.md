@@ -88,6 +88,8 @@ The apps will post key and request params in the request body.
 
 We are using UUID = 89578159-d0f4-4a4c-a267-3595c01aa459 as a camaflouge for login.
 
+Change the above UUID to a different UUID in the main app and make a change in server.js
+
 It is easy to guess the login route and hence we are using a complex hard to guess path.
 
 The app (both mobile and web) will call the API /89578159-d0f4-4a4c-a267-3595c01aa459 to get the JWT token based upon a randomly used key and secret which is shared between API server and the apps. This will help to use a random key and secret to get a JWT which will change every time. This is better than using a fixed JWT which is risky if someone is able to get the JWT and call API server directly.
