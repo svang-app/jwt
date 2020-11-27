@@ -7,12 +7,12 @@ let middleware = require('./middleware');
 
 class HandlerGenerator {
   login (req, res) {
-    let key = req.body.key;
-    let secret = req.body.secret;
+    let primary = req.body.primary;
+    let secondary = req.body.secondary;
 
-    if (key && secret) {
-      if (checkKey(key, secret)) {
-        let token = jwt.sign({username: key},
+    if (primary && secondary) {
+      if (checkKey(primary, secondary)) {
+        let token = jwt.sign({primary: primary},
           config.secret,
           { 
              expiresIn: '24h' // expires in 24 hours
@@ -25,15 +25,15 @@ class HandlerGenerator {
           token: token
         });
       } else {
-        res.send(403).json({
+        return res.status(403).json({
           success: false,
-          message: 'Incorrect key or secret'
+          message: 'Incorrect primary or secondary'
         });
       }
     } else {
-      res.send(400).json({
+      return res.status(400).json({
         success: false,
-        message: 'Authentication failed! Please check the request'
+        message: 'Authentication failed! Please check the request for primary and secondary keys'
       });
     }
   }

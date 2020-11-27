@@ -17,11 +17,11 @@ let json = decrypt(hash);
 
 const obj = JSON.parse(json);
 
-const checkKey = (key, secret) => {
+const checkKey = (primary, secondary) => {
    let i = 0;
    var result = false;
    var BreakException = {};
-   var data = {"key": key, "secret": secret};
+   var data = {"primary": primary, "secondary": secondary};
    obj.forEach(function(o) {
      try {
         // console.log(JSON.stringify(o));

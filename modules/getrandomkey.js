@@ -19,7 +19,7 @@ let hash = JSON.parse(rawdata);
 
 let json = decrypt(hash);
 
-// console.log(json);
+//console.log(json);
 
 const obj = JSON.parse(json);
 

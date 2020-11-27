@@ -18,11 +18,12 @@ Generate UUID
 python -c "import uuid ; print(str(uuid.uuid1()).upper())"
 ```
 
-Middleware use in our REST API example
+## Generate keys
 
 ```
-app.get(‘/v1/someResource’, middleware.checkToken, handlers.someHandler);
-app.post(‘/v1/anotherResource’, middleware.checkToken, handlers.anotherHandler);
+cd modules
+node genkeys.js
+cd ..
 ```
 
 ## Start server
@@ -39,7 +40,7 @@ curl -X GET http://localhost:8000
 
 ```
 
-## How to get key and secret by the client
+## How to get primary and secondary by the client
 
 The modules dir will be used as is by the mobile and web app
 
@@ -48,22 +49,13 @@ The mobile app and web app will use function `getrandomkey` to get a random key 
 For example:
 
 ```
-const { data } = require('./modules/getrandomkey');
-console.log("key = " + data.key + " secret = " + data.secret);
-```
-
-Run the following code snippet.
-
-```
-$ node
-Welcome to Node.js v14.13.0.
-Type ".help" for more information.
+node
 > const { data } = require('./modules/getrandomkey');
-undefined
-> console.log("key = " + data.key + " secret = " + data.secret);
-key = dfb703a5-65ff-4ff0-bb0a-739239c18cc6 secret = cd25058f-a744-47b2-9851-15bbe4eeb9be
-undefined
-> 
+> console.log(data)
+{
+  primary: 'ed2d9212-46a9-41d1-bd97-1a5f2fb2056c',
+  secondary: 'ccf86474-b44c-42b3-8b7a-16beafbe06dc'
+}
 ```
 
 The API server will use the same modules to check the key and secret.
@@ -71,11 +63,11 @@ The API server will use the same modules to check the key and secret.
 For example:
 
 ```
-const { checkKey } = require('./modules/checkkey');
+node
+> const { checkKey } = require('./modules/checkkey');
+> var primary = "ed2d9212-46a9-41d1-bd97-1a5f2fb2056c", secondary = "ccf86474-b44c-42b3-8b7a-16beafbe06dc";
 
-var key = "dfb703a5-65ff-4ff0-bb0a-739239c18cc6", secret = "cd25058f-a744-47b2-9851-15bbe4eeb9be";
-
-if (checkKey(key,secret)) {
+if (checkKey(primary,secondary)) {
   console.log("Found");
 } else {
   console.log("Not found");
@@ -98,11 +90,11 @@ The app will call function ./modules/getrandomkey to get a random key and secret
 ```
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"key":"dfb703a5-65ff-4ff0-bb0a-739239c18cc6", "secret":"cd25058f-a744-47b2-9851-15bbe4eeb9be"}' \
+  --data '{"primary":"ed2d9212-46a9-41d1-bd97-1a5f2fb2056c", "secondary":"ccf86474-b44c-42b3-8b7a-16beafbe06dc"}' \
   http://localhost:8000/89578159-d0f4-4a4c-a267-3595c01aa459
 
 
-{"success":true,"message":"Authentication successful!","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIyM0MwOTMyLTIyQzAtMTFFQi1CNDk1LUFDREU0ODAwMTEyMiIsImlhdCI6MTYwNDk1MTIwNiwiZXhwIjoxNjA1MDM3NjA2fQ.pevSlFnvIohCxBoS4WlSPKjsu2qDmaVhg_t3yzgaglI"}  
+{"success":true,"message":"Authentication successful!","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5IjoiZWQyZDkyMTItNDZhOS00MWQxLWJkOTctMWE1ZjJmYjIwNTZjIiwiaWF0IjoxNjA2NDkzMDg3LCJleHAiOjE2MDY1Nzk0ODd9.8CaiBwTw5NAwtJxmuCig-GfykUIYDZAPAzQtbZdzeuA"}
 ```
 
 ## Test with token
@@ -111,9 +103,15 @@ We can remake our last home page request by adding a bearer token.
 
 ```
 curl -X GET \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIyM0MwOTMyLTIyQzAtMTFFQi1CNDk1LUFDREU0ODAwMTEyMiIsImlhdCI6MTYwNDk1MTIwNiwiZXhwIjoxNjA1MDM3NjA2fQ.pevSlFnvIohCxBoS4WlSPKjsu2qDmaVhg_t3yzgaglI' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5IjoiZWQyZDkyMTItNDZhOS00MWQxLWJkOTctMWE1ZjJmYjIwNTZjIiwiaWF0IjoxNjA2NDkzMDg3LCJleHAiOjE2MDY1Nzk0ODd9.8CaiBwTw5NAwtJxmuCig-GfykUIYDZAPAzQtbZdzeuA' \
   http://localhost:8000
 
 {"success":true,"message":"Index page"}  
 ```
 
+## Middleware use in REST API example
+
+```
+app.get(‘/v1/someResource’, middleware.checkToken, handlers.someHandler);
+app.post(‘/v1/anotherResource’, middleware.checkToken, handlers.anotherHandler);
+```

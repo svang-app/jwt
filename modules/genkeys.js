@@ -16,10 +16,8 @@ const outFileName = 'keys.bin';
 
 var obj = [];
 
-obj.push({key: uuidv4(), secret:uuidv4()});
-
 for (i = 0; i < 512; i++) {
-   obj.push({key: uuidv4(), secret:uuidv4()});
+   obj.push({primary: uuidv4(), secondary:uuidv4()});
 }
 
 var json = JSON.stringify(obj, null, 4);
