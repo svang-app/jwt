@@ -11,8 +11,8 @@ class HandlerGenerator {
     let secret = req.body.secret;
 
     if (key && secret) {
-      if (checkKey(key, secret) {
-        let token = jwt.sign({key: username},
+      if (checkKey(key, secret)) {
+        let token = jwt.sign({username: key},
           config.secret,
           { 
              expiresIn: '24h' // expires in 24 hours

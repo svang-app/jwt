@@ -61,7 +61,7 @@ Type ".help" for more information.
 > const { data } = require('./modules/getrandomkey');
 undefined
 > console.log("key = " + data.key + " secret = " + data.secret);
-key = 658dc0b8-d710-439c-ad29-15585029515d secret = 6e76cfb0-c972-403d-bb6c-2646e7fb52c0
+key = dfb703a5-65ff-4ff0-bb0a-739239c18cc6 secret = cd25058f-a744-47b2-9851-15bbe4eeb9be
 undefined
 > 
 ```
@@ -73,7 +73,7 @@ For example:
 ```
 const { checkKey } = require('./modules/checkkey');
 
-var key = "658dc0b8-d710-439c-ad29-15585029515d", secret = "6e76cfb0-c972-403d-bb6c-2646e7fb52c0";
+var key = "dfb703a5-65ff-4ff0-bb0a-739239c18cc6", secret = "cd25058f-a744-47b2-9851-15bbe4eeb9be";
 
 if (checkKey(key,secret)) {
   console.log("Found");
@@ -81,7 +81,6 @@ if (checkKey(key,secret)) {
   console.log("Not found");
 }
 ```
-
 The apps will post key and request params in the request body.
 
 ## Test with login
@@ -99,7 +98,7 @@ The app will call function ./modules/getrandomkey to get a random key and secret
 ```
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"key":"658dc0b8-d710-439c-ad29-15585029515d", "secret":"6e76cfb0-c972-403d-bb6c-2646e7fb52c0"}' \
+  --data '{"key":"dfb703a5-65ff-4ff0-bb0a-739239c18cc6", "secret":"cd25058f-a744-47b2-9851-15bbe4eeb9be"}' \
   http://localhost:8000/89578159-d0f4-4a4c-a267-3595c01aa459
 
 
