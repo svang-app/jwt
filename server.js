@@ -15,9 +15,11 @@ class HandlerGenerator {
         let token = jwt.sign({primary: primary},
           config.secret,
           { 
-             expiresIn: '24h' // expires in 24 hours
+             expiresIn: config.expiresIn
           }
         );
+        console.log("secret:" + config.secret);
+        console.log("expiresIn:" + config.expiresIn);
         // return the JWT token for the future API calls
         res.json({
           success: true,
